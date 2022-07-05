@@ -1,0 +1,58 @@
+x = '1111111110000000000000000'
+
+def task1(str):
+  return str.index('10')
+
+print(task1(x))
+
+
+def task2(x1,y1,x2,y2,x3,y3,x4,y4):
+  return (True, max(0, y1 - y3) * max(0, x2 - x3)) if max(0, y1 - y3) * max(0, x2 - x3) else False
+
+print(task2(1, 1, 2, 2, 3, 3, 4, 4))
+
+
+import wikipediaapi
+
+wiki_wiki = wikipediaapi.Wikipedia('ru')
+
+def task3(categorymembers, level=0, max_level=1):
+        ans = []
+        lettercount = {}
+        for c in categorymembers.values():
+            if ':' not in str(c.title):
+                ans.append(str(c.title))
+                try:
+                    lettercount[str(c.title).upper()[0]] += 1
+                except KeyError:
+                    if str(c.title).upper()[0] == 'Ё':
+                        lettercount['Е'] = 1
+                    else:
+                        lettercount[str(c.title).upper()[0]] = 1
+        for i in sorted(lettercount.items(), key=lambda x: (x[0])):
+            print(i[0] + ' : ' + str(i[1]))
+
+
+
+cat = wiki_wiki.page("Категория:Животные_по_алфавиту")
+task3(cat.categorymembers)
+
+
+def task4(intervals):
+    pupilset = set()
+    tutorset = set()
+    lesson_set = set(range(intervals['lesson'][0], intervals['lesson'][1]))
+    for i in range(0, len(intervals['pupil']), 2):
+        pupilset.update(lesson_set.intersection(set(range(intervals['pupil'][i], intervals['pupil'][i + 1]))))
+    for i in range(0, len(intervals['tutor']), 2):
+        tutorset.update(lesson_set.intersection(set(range(intervals['tutor'][i], intervals['tutor'][i + 1]))))
+    print(len(tutorset.intersection(pupilset)))
+
+
+
+
+task4({'lesson': [1594692000, 1594695600],
+             'pupil': [1594692033, 1594696347],
+             'tutor': [1594692017, 1594692066, 1594692068, 1594696341]}
+
+)
