@@ -1,7 +1,7 @@
 x = '1111111110000000000000000'
 
 def task1(str):
-  return str.index('10')
+  return str.index('10') + 1
 
 print(task1(x))
 
